@@ -7,13 +7,13 @@ import (
 )
 
 var channel = make(chan string, 10)
-var ports = []int{8000, 8001}
+var ports = []int{8000, 8001, 8002}
 
 type APIHandler struct{}
 
 func (apiHandler APIHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	channel <- r.Host
-	w.Write([]byte("done"))
+	w.Write([]byte("done\n"))
 }
 
 func NewServer(port int) {
@@ -28,5 +28,6 @@ func main() {
 
 	for {
 		fmt.Println(<-channel)
+		fmt.Println("??")
 	}
 }
